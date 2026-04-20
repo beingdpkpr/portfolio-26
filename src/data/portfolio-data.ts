@@ -92,8 +92,8 @@ const data: Portfolio = {
   projects: [
     {
       title: "Supply Planning Re-engineering",
-      tags: ["Python", "C++", "Performance Engineering", "Enterprise"],
-      description: "Re-architected critical TLB, MRP and IOP supply planning components enabling advanced parameterization, achieving 50% faster batch runs and 30% lower memory footprint across 150+ client deployments.",
+      tags: ["Python", "PySpark", "Performance Engineering", "Enterprise", "Delta Lake", "OLAP"],
+      description: "Re-architected critical supply planning components enabling advanced parameterization, achieving 50% faster batch runs and 30% lower memory footprint across 150+ client deployments.",
       highlight: "50% faster · 30% less memory",
     },
     {
@@ -104,13 +104,13 @@ const data: Portfolio = {
     },
     {
       title: "Solver Integration Suite",
-      tags: ["C++", "Boost", "Parquet", "Systems"],
+      tags: ["C++", "Boost", "Parquet", "Systems", "Docker", "Kubernetes"],
       description: "Architected and delivered integrations for 6+ third-party optimization solvers including Samsung NSR, using Boost serialization and Parquet-based data exchange to improve reliability and deployment scalability.",
       highlight: "6+ solver integrations",
     },
     {
       title: "Developer Productivity Suite",
-      tags: ["Python", "Tooling", "Internal Platform"],
+      tags: ["Python", "Tooling", "Internal Platform", "Efficiency"],
       description: "Engineered 7-tool productivity suite: Tenant Extractor, Builder, Performance Analyzer, Test Recorder/Runner, Rule Creator, and Dataset Multiplier. Adopted by 100+ internal teams, improving consultant productivity 25%.",
       highlight: "100+ teams · 25% productivity gain",
     },
