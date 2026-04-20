@@ -49,14 +49,6 @@ export interface Certification {
   courses?: CourseEntry[]
 }
 
-export interface BlogPreview {
-  title: string
-  date: string
-  tag: string
-  excerpt: string
-  link: string
-}
-
 export interface Portfolio {
   name: string
   title: string
@@ -74,8 +66,9 @@ export interface Portfolio {
   skills: SkillGroup[]
   education: Education[]
   certifications: Certification[]
-  blog: BlogPreview[]
 }
+
+export type FormState = 'idle' | 'sending' | 'success' | 'error'
 
 export interface BlogFrontmatter {
   title: string
@@ -89,5 +82,3 @@ export interface BlogPost extends BlogFrontmatter {
   slug: string
   content: string
 }
-
-export type FormState = 'idle' | 'sending' | 'success' | 'error'

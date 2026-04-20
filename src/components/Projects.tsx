@@ -17,7 +17,7 @@ export function Projects() {
         </h2>
       </Reveal>
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(340px, 1fr))', gap: 1, alignItems: 'stretch' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(min(340px, 100%), 1fr))', gap: 1, alignItems: 'stretch' }}>
         {d.map((p, i) => (
           <Reveal key={i} delay={i * 0.07} style={{ height: '100%' }}>
             <div

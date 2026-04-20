@@ -21,7 +21,7 @@ const data: Portfolio = {
   githubLabel: "github.com/beingdpkpr",
   location: "Bangalore, India · Open to Relocation",
 
-  about: `Technical leader with 9+ years architecting large-scale supply chain platforms serving 150+ global clients. Proven track record in performance engineering (50% runtime reduction, 30% memory optimization), solver integrations, and leading 10+ developer teams across Python, microservices, and distributed systems. Passionate about creating and innovating, driven to make a difference and leave the world a better place.`,
+  about: `Technical leader with ${yearsExperience}+ years architecting large-scale supply chain platforms serving 150+ global clients. Proven track record in performance engineering (50% runtime reduction, 30% memory optimization), solver integrations, and leading 10+ developer teams across Python, microservices, and distributed systems. Passionate about creating and innovating, driven to make a difference and leave the world a better place.`,
 
   experience: [
     {
@@ -244,29 +244,6 @@ const data: Portfolio = {
     },
   ],
 
-  blog: [
-    {
-      title: "Optimizing Supply Chain Planning with Python",
-      date: "2024",
-      tag: "Architecture",
-      excerpt: "How we achieved 50% reduction in batch computation time through targeted re-engineering of core supply planning components.",
-      link: "/blog/optimizing-supply-chain-planning",
-    },
-    {
-      title: "Integrating Third-Party Solvers at Scale",
-      date: "2023",
-      tag: "Systems",
-      excerpt: "Lessons from integrating 6+ optimization solvers including Samsung NSR with Boost serialization and Parquet-based data exchange.",
-      link: "/blog/integrating-third-party-solvers",
-    },
-    {
-      title: "Building a Developer Productivity Suite",
-      date: "2023",
-      tag: "Engineering",
-      excerpt: "How we built 7 internal tools that improved consultant productivity by 25% and were adopted by 100+ teams.",
-      link: "/blog/developer-productivity-suite",
-    },
-  ],
 }
 
 export default data

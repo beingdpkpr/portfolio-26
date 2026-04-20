@@ -22,7 +22,7 @@ export function Certifications() {
           <Reveal key={i} delay={i * 0.07}>
             <div style={{ border: '1px solid rgba(255,255,255,0.06)', overflow: 'hidden' }}>
               <div
-                style={{ padding: '32px 40px', display: 'grid', gridTemplateColumns: '1fr auto', alignItems: 'center', gap: 24, cursor: cert.courses ? 'pointer' : 'default', transition: 'background 0.2s' }}
+                style={{ padding: '32px 40px', display: 'grid', gridTemplateColumns: '1fr auto', alignItems: 'center', gap: 24, cursor: cert.courses ? 'pointer' : 'default', transition: 'background 0.2s' }} className="cert-row"
                 onClick={() => cert.courses && setExpanded(expanded === i ? null : i)}
                 onMouseEnter={e => { if (cert.courses) e.currentTarget.style.background = 'rgba(255,255,255,0.03)' }}
                 onMouseLeave={e => { e.currentTarget.style.background = 'transparent' }}>

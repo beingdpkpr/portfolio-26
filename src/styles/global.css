@@ -53,7 +53,6 @@ textarea { font-family: 'Inter', sans-serif; }
 @media (max-width: 768px) {
   .nav-links { display: none !important; }
   .hamburger { display: flex !important; }
-  .blog-grid { grid-template-columns: 1fr !important; }
 }
 
 @media (max-width: 900px) {
@@ -62,7 +61,7 @@ textarea { font-family: 'Inter', sans-serif; }
   .exp-detail   { padding: 32px 0 0 0 !important; }
   .contact-grid { grid-template-columns: 1fr !important; }
   .edu-card     { grid-template-columns: 1fr !important; }
-  .blog-row     { grid-template-columns: 1fr !important; }
+  .cert-row     { grid-template-columns: 1fr !important; }
 }
 
 /* ── Blog article typography ── */
@@ -80,3 +79,5 @@ textarea { font-family: 'Inter', sans-serif; }
 .article-body a { color: #fff; text-underline-offset: 3px; }
 .article-body a:hover { opacity: 0.7; }
 .article-body hr { border: none; border-top: 1px solid rgba(255,255,255,0.08); margin: 40px 0; }
+
+
