@@ -10,7 +10,7 @@ const STORAGE_KEY = 'contact_last_sent'
 function validate(name: string, email: string, message: string): string | null {
   if (name.trim().length < 2)        return 'Name must be at least 2 characters.'
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return 'Please enter a valid email address.'
-  if (message.trim().length < 20)    return 'Message must be at least 20 characters.'
+  if (message.trim().length < 5)     return 'Please enter a message.'
   if (message.trim().length > 3000)  return 'Message must be under 3000 characters.'
   return null
 }
@@ -37,31 +37,32 @@ export function Contact() {
   const [email, setEmail]     = useState('')
   const [message, setMessage] = useState('')
   const [error, setError]     = useState<string | null>(null)
+  const [sendError, setSendError] = useState<string | null>(null)
   const honeypotRef = useRef<HTMLInputElement>(null)
-
-  const isValid = !validate(name, email, message)
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
 
     if (honeypotRef.current?.value) return
 
+    const validationError = validate(name, email, message)
+    if (validationError) { setError(validationError); return }
+
     if (isCoolingDown()) {
       setError('Please wait a moment before sending another message.')
       return
     }
 
-    const validationError = validate(name, email, message)
-    if (validationError) { setError(validationError); return }
-
     setError(null)
+    setSendError(null)
     setFormState('sending')
     try {
       await sendEmail({ from_name: name, from_email: email, message })
       sessionStorage.setItem(STORAGE_KEY, String(Date.now()))
       setFormState('success')
       setName(''); setEmail(''); setMessage('')
-    } catch {
+    } catch (err) {
+      setSendError(err instanceof Error ? err.message : String(err))
       setFormState('error')
     }
   }
@@ -142,22 +143,22 @@ export function Contact() {
               )}
               {formState === 'error' && (
                 <div style={{ fontFamily: "'Inter', sans-serif", fontSize: 13, color: '#c0392b' }}>
-                  Something went wrong. Please try again or email directly.
+                  {sendError ?? 'Something went wrong. Please try again or email directly.'}
                 </div>
               )}
 
               <button
                 type="submit"
-                disabled={!isValid || formState === 'sending'}
+                disabled={formState === 'sending'}
                 style={{
-                  background: isValid ? '#fff' : 'rgba(255,255,255,0.15)', color: isValid ? '#000' : '#666',
-                  border: 'none', cursor: isValid ? 'pointer' : 'not-allowed',
+                  background: '#fff', color: '#000',
+                  border: 'none', cursor: formState === 'sending' ? 'not-allowed' : 'pointer',
                   padding: '16px 40px', fontFamily: "'Space Grotesk', sans-serif",
                   fontWeight: 700, fontSize: 14, letterSpacing: '0.05em',
                   alignSelf: 'flex-start', transition: 'all 0.2s',
                 }}
-                onMouseEnter={e => { if (isValid) e.currentTarget.style.background = '#e0e0e0' }}
-                onMouseLeave={e => { if (isValid) e.currentTarget.style.background = '#fff' }}>
+                onMouseEnter={e => { if (formState !== 'sending') e.currentTarget.style.background = '#e0e0e0' }}
+                onMouseLeave={e => { e.currentTarget.style.background = '#fff' }}>
                 {formState === 'sending' ? 'SENDING…' : 'SEND MESSAGE →'}
               </button>
             </form>

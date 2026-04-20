@@ -5,7 +5,7 @@ const data: Portfolio = {
   title: "Senior Application Architect",
   tagline: "9+ years · Supply Chain Platforms · Python · Distributed Systems · 150+ Global Clients",
   email: "deepak.prasad.ai@gmail.com",
-  phone: "+91 88613 27919",
+  phone: "+91 88613 27919 & +1 (707) 733-3727",
   linkedin: "https://linkedin.com/in/dpkpr1",
   linkedinLabel: "linkedin.com/in/dpkpr1",
   github: "https://github.com/beingdpkpr",
@@ -155,8 +155,8 @@ const data: Portfolio = {
       detail: "Year of Completion: 2011",
       gpa: "89.8%",
       achievements: [
-        "Secured high distinction in Mathematics",
-        "Represented school at the Regional Mathematics Exhibition",
+        "Secured high distinction in Mathematics (100/100).",
+        "Represented school at the Regional Mathematics Exhibition.",
       ],
     },
     {
@@ -165,6 +165,10 @@ const data: Portfolio = {
       year: "2009",
       detail: "Year of Completion: 2009",
       gpa: "88.8%",
+      achievements: [
+        "Represented school at the Regional Table Tennis tournament.",
+        "Scored 99/100 in Mathematics.",
+      ],
     },
   ],
 
