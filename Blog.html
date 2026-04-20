@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog — Deepak Kumar Prasad</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { -webkit-font-smoothing: antialiased; scroll-behavior: smooth; }
+    body { background: #08080a; color: #fff; overflow-x: hidden; }
+    ::selection { background: rgba(255,255,255,0.15); }
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: #08080a; }
+    ::-webkit-scrollbar-thumb { background: #333; }
+    @keyframes fadeUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:none; } }
+    @media (max-width: 768px) { .blog-grid { grid-template-columns: 1fr !important; } }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+  <script type="text/babel">
+    const { useState, useEffect, useRef } = React;
+
+    const POSTS = [
+      {
+        id: 1,
+        title: "Optimizing Supply Chain Planning with Python",
+        date: "Mar 2024",
+        tag: "Architecture",
+        excerpt: "How we achieved 50% reduction in batch computation time through targeted re-engineering of core supply planning components at o9 Solutions.",
+        readTime: "8 min read",
+        content: `Coming soon — this article is being written. Check back shortly.`,
+      },
+      {
+        id: 2,
+        title: "Integrating Third-Party Solvers at Scale",
+        date: "Nov 2023",
+        tag: "Systems",
+        excerpt: "Lessons from integrating 6+ optimization solvers including Samsung NSR with Boost serialization and Parquet-based data exchange.",
+        readTime: "6 min read",
+        content: `Coming soon — this article is being written. Check back shortly.`,
+      },
+      {
+        id: 3,
+        title: "Building a Developer Productivity Suite",
+        date: "Jul 2023",
+        tag: "Engineering",
+        excerpt: "How we built 7 internal tools that improved consultant productivity by 25% and were adopted by 100+ teams at o9 Solutions.",
+        readTime: "5 min read",
+        content: `Coming soon — this article is being written. Check back shortly.`,
+      },
+      {
+        id: 4,
+        title: "From Monolith to Microservices: Lessons Learned",
+        date: "Apr 2023",
+        tag: "Engineering",
+        excerpt: "A practical guide to migrating a large enterprise application to microservices without downtime, from the trenches.",
+        readTime: "10 min read",
+        content: `Coming soon — this article is being written. Check back shortly.`,
+      },
+    ];
+
+    const TAGS = ["All", ...Array.from(new Set(POSTS.map(p => p.tag)))];
+
+    function useInView(threshold = 0.1) {
+      const ref = useRef(null);
+      const [vis, setVis] = useState(false);
+      useEffect(() => {
+        const obs = new IntersectionObserver(([e]) => { if (e.isIntersecting) setVis(true); }, { threshold });
+        if (ref.current) obs.observe(ref.current);
+        return () => obs.disconnect();
+      }, []);
+      return [ref, vis];
+    }
+
+    function Reveal({ children, delay = 0 }) {
+      const [ref, vis] = useInView();
+      return (
+        <div ref={ref} style={{
+          opacity: vis ? 1 : 0,
+          transform: vis ? "none" : "translateY(24px)",
+          transition: `opacity 0.6s ease ${delay}s, transform 0.6s ease ${delay}s`,
+        }}>{children}</div>
+      );
+    }
+
+    function PostModal({ post, onClose }) {
+      useEffect(() => {
+        document.body.style.overflow = "hidden";
+        const handler = (e) => { if (e.key === "Escape") onClose(); };
+        window.addEventListener("keydown", handler);
+        return () => { document.body.style.overflow = ""; window.removeEventListener("keydown", handler); };
+      }, []);
+      return (
+        <div onClick={onClose} style={{
+          position:"fixed", inset:0, zIndex:1000,
+          background:"rgba(0,0,0,0.85)", backdropFilter:"blur(8px)",
+          display:"flex", alignItems:"center", justifyContent:"center",
+          padding:"24px",
+        }}>
+          <div onClick={e => e.stopPropagation()} style={{
+            background:"#0f0f11", border:"1px solid rgba(255,255,255,0.1)",
+            maxWidth:720, width:"100%", maxHeight:"80vh", overflowY:"auto",
+            padding:"clamp(32px,5vw,64px)",
+          }}>
+            <button onClick={onClose} style={{ background:"none", border:"none", color:"#555", cursor:"pointer", fontFamily:"'Space Mono',monospace", fontSize:11, letterSpacing:"0.1em", marginBottom:32, padding:0 }}>
+              ← BACK TO BLOG
+            </button>
+            <div style={{ display:"flex", gap:16, alignItems:"center", marginBottom:16, flexWrap:"wrap" }}>
+              <span style={{ fontFamily:"'Space Mono',monospace", fontSize:10, color:"#555", border:"1px solid rgba(255,255,255,0.1)", padding:"3px 10px", letterSpacing:"0.12em" }}>{post.tag}</span>
+              <span style={{ fontFamily:"'Space Mono',monospace", fontSize:10, color:"#444" }}>{post.date}</span>
+              <span style={{ fontFamily:"'Space Mono',monospace", fontSize:10, color:"#444" }}>{post.readTime}</span>
+            </div>
+            <h1 style={{ fontFamily:"'Space Grotesk',sans-serif", fontWeight:800, fontSize:"clamp(24px,3vw,36px)", color:"#fff", margin:"0 0 24px", lineHeight:1.2, letterSpacing:"-0.02em" }}>
+              {post.title}
+            </h1>
+            <p style={{ fontFamily:"'Inter',sans-serif", fontSize:16, color:"#666", lineHeight:1.8, marginBottom:32, borderBottom:"1px solid rgba(255,255,255,0.06)", paddingBottom:32 }}>
+              {post.excerpt}
+            </p>
+            <div style={{ fontFamily:"'Inter',sans-serif", fontSize:15, color:"#666", lineHeight:1.8 }}>
+              {post.content}
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    function App() {
+      const [activeTag, setActiveTag] = useState("All");
+      const [openPost, setOpenPost] = useState(null);
+      const [scrolled, setScrolled] = useState(false);
+
+      useEffect(() => {
+        const h = () => setScrolled(window.scrollY > 40);
+        window.addEventListener("scroll", h);
+        return () => window.removeEventListener("scroll", h);
+      }, []);
+
+      const filtered = activeTag === "All" ? POSTS : POSTS.filter(p => p.tag === activeTag);
+
+      return (
+        <div style={{ background:"#08080a", minHeight:"100vh" }}>
+          {/* Nav */}
+          <nav style={{
+            position:"fixed", top:0, left:0, right:0, zIndex:100,
+            background: scrolled ? "rgba(8,8,10,0.92)" : "transparent",
+            backdropFilter: scrolled ? "blur(16px)" : "none",
+            borderBottom: scrolled ? "1px solid rgba(255,255,255,0.07)" : "none",
+            transition:"all 0.3s", padding:"0 clamp(16px,4vw,64px)",
+            display:"flex", alignItems:"center", justifyContent:"space-between", height:64,
+          }}>
+            <a href="Portfolio.html" style={{ color:"#fff", textDecoration:"none", fontFamily:"'Space Grotesk',sans-serif", fontWeight:700, fontSize:16, letterSpacing:"0.05em" }}>
+              DKP<span style={{ color:"#888" }}>.</span>
+            </a>
+            <div style={{ display:"flex", gap:32, alignItems:"center" }}>
+              <a href="Portfolio.html" style={{ fontFamily:"'Space Mono',monospace", fontSize:11, color:"#555", letterSpacing:"0.12em", textTransform:"uppercase", textDecoration:"none", transition:"color 0.2s" }}
+                onMouseEnter={e => e.target.style.color="#fff"} onMouseLeave={e => e.target.style.color="#555"}>
+                ← Portfolio
+              </a>
+              <a href="uploads/deepak_prasad_26.pdf" download="Deepak_Kumar_Prasad_Resume.pdf"
+                style={{ fontFamily:"'Space Mono',monospace", fontSize:11, color:"#000", background:"#fff", padding:"6px 16px", textDecoration:"none", letterSpacing:"0.12em", textTransform:"uppercase" }}>
+                RÉSUMÉ ↓
+              </a>
+            </div>
+          </nav>
+
+          {/* Hero */}
+          <div style={{ padding:"160px clamp(16px,8vw,140px) 80px" }}>
+            <div style={{ fontFamily:"'Space Mono',monospace", fontSize:11, letterSpacing:"0.2em", color:"#555", textTransform:"uppercase", marginBottom:16, animation:"fadeUp 0.8s ease both" }}>
+              Writing
+            </div>
+            <h1 style={{ fontFamily:"'Space Grotesk',sans-serif", fontWeight:800, fontSize:"clamp(40px,7vw,96px)", color:"#fff", lineHeight:0.95, letterSpacing:"-0.02em", margin:"0 0 24px", animation:"fadeUp 0.8s ease 0.1s both" }}>
+              Blog &<br />
+              <span style={{ color:"transparent", WebkitTextStroke:"1px rgba(255,255,255,0.2)" }}>Articles</span>
+            </h1>
+            <p style={{ fontFamily:"'Inter',sans-serif", fontSize:17, color:"#555", maxWidth:480, lineHeight:1.7, animation:"fadeUp 0.8s ease 0.2s both" }}>
+              Thoughts on software architecture, supply chain engineering, performance optimization, and building systems that scale.
+            </p>
+          </div>
+
+          {/* Tag filter */}
+          <div style={{ padding:"0 clamp(16px,8vw,140px) 64px", display:"flex", gap:12, flexWrap:"wrap" }}>
+            {TAGS.map(t => (
+              <button key={t} onClick={() => setActiveTag(t)} style={{
+                background: activeTag===t ? "#fff" : "transparent",
+                color: activeTag===t ? "#000" : "#555",
+                border:"1px solid", borderColor: activeTag===t ? "#fff" : "rgba(255,255,255,0.12)",
+                fontFamily:"'Space Mono',monospace", fontSize:11, letterSpacing:"0.12em",
+                textTransform:"uppercase", padding:"8px 20px", cursor:"pointer", transition:"all 0.2s",
+              }}>
+                {t}
+              </button>
+            ))}
+          </div>
+
+          {/* Posts grid */}
+          <div style={{ padding:"0 clamp(16px,8vw,140px) 120px" }}>
+            <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill,minmax(340px,1fr))", gap:1 }} className="blog-grid">
+              {filtered.map((post, i) => (
+                <Reveal key={post.id} delay={i * 0.07}>
+                  <div onClick={() => setOpenPost(post)} style={{
+                    padding:"40px", border:"1px solid rgba(255,255,255,0.06)",
+                    cursor:"pointer", transition:"background 0.2s", position:"relative",
+                  }}
+                  onMouseEnter={e => e.currentTarget.style.background="rgba(255,255,255,0.04)"}
+                  onMouseLeave={e => e.currentTarget.style.background="transparent"}>
+                    <div style={{ display:"flex", gap:16, alignItems:"center", marginBottom:20, flexWrap:"wrap" }}>
+                      <span style={{ fontFamily:"'Space Mono',monospace", fontSize:9, color:"#555", border:"1px solid rgba(255,255,255,0.1)", padding:"3px 10px", letterSpacing:"0.12em", textTransform:"uppercase" }}>{post.tag}</span>
+                      <span style={{ fontFamily:"'Space Mono',monospace", fontSize:10, color:"#444" }}>{post.date}</span>
+                      <span style={{ fontFamily:"'Space Mono',monospace", fontSize:10, color:"#333" }}>{post.readTime}</span>
+                    </div>
+                    <h2 style={{ fontFamily:"'Space Grotesk',sans-serif", fontWeight:700, fontSize:20, color:"#fff", margin:"0 0 16px", lineHeight:1.3 }}>
+                      {post.title}
+                    </h2>
+                    <p style={{ fontFamily:"'Inter',sans-serif", fontSize:14, color:"#555", lineHeight:1.7, margin:"0 0 32px" }}>
+                      {post.excerpt}
+                    </p>
+                    <div style={{ fontFamily:"'Space Mono',monospace", fontSize:11, color:"#444", letterSpacing:"0.08em" }}>
+                      READ MORE →
+                    </div>
+                  </div>
+                </Reveal>
+              ))}
+            </div>
+            {filtered.length === 0 && (
+              <div style={{ fontFamily:"'Space Mono',monospace", fontSize:13, color:"#444", padding:"80px 0", textAlign:"center" }}>
+                No articles in this category yet.
+              </div>
+            )}
+          </div>
+
+          {/* Footer */}
+          <div style={{ padding:"48px clamp(16px,8vw,140px)", borderTop:"1px solid rgba(255,255,255,0.06)", display:"flex", justifyContent:"space-between", alignItems:"center", flexWrap:"wrap", gap:16 }}>
+            <div style={{ fontFamily:"'Space Mono',monospace", fontSize:11, color:"#333" }}>© 2025 DEEPAK KUMAR PRASAD</div>
+            <a href="Portfolio.html" style={{ fontFamily:"'Space Mono',monospace", fontSize:11, color:"#444", textDecoration:"none", letterSpacing:"0.08em", transition:"color 0.2s" }}
+              onMouseEnter={e => e.target.style.color="#fff"} onMouseLeave={e => e.target.style.color="#444"}>
+              ← BACK TO PORTFOLIO
+            </a>
+          </div>
+
+          {openPost && <PostModal post={openPost} onClose={() => setOpenPost(null)} />}
+        </div>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+  </script>
+</body>
+</html>

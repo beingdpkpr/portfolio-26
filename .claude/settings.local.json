@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cp -r \"C:/Users/deepak.prasad/.claude/projects/d--work-mine-portfolio-26/3032dea5-05c8-4920-afb2-d91e4dfc856d/tool-results/deepak-s-portfolio/project/assets\" \"d:/work/mine/portfolio-26/assets\")",
+      "Bash(cp -r \"C:/Users/deepak.prasad/.claude/projects/d--work-mine-portfolio-26/3032dea5-05c8-4920-afb2-d91e4dfc856d/tool-results/deepak-s-portfolio/project/uploads\" \"d:/work/mine/portfolio-26/uploads\")"
+    ]
+  }
+}
