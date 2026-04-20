@@ -49,7 +49,7 @@ export function Nav() {
             transition: 'all 0.2s',
           }}>{s}</button>
         ))}
-        <a href="/uploads/deepak_prasad_26.pdf" download="Deepak_Kumar_Prasad_Resume.pdf"
+        <a href="/assets/deepak_prasad_26.pdf" download="Deepak_Kumar_Prasad_Resume.pdf"
           style={{
             fontFamily: "'Space Mono', monospace", fontSize: 11, letterSpacing: '0.12em',
             textTransform: 'uppercase', color: '#000', background: '#fff',

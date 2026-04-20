@@ -41,7 +41,7 @@ export function Blog() {
             onMouseLeave={e => (e.currentTarget.style.color = '#555')}>
             ← Portfolio
           </a>
-          <a href="/uploads/deepak_prasad_26.pdf" download="Deepak_Kumar_Prasad_Resume.pdf"
+          <a href="/assets/deepak_prasad_26.pdf" download="Deepak_Kumar_Prasad_Resume.pdf"
             style={{ fontFamily: "'Space Mono', monospace", fontSize: 11, color: '#000', background: '#fff', padding: '6px 16px', textDecoration: 'none', letterSpacing: '0.12em', textTransform: 'uppercase' }}>
             RÉSUMÉ ↓
           </a>
