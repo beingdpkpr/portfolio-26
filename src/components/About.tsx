@@ -42,7 +42,7 @@ export function About() {
 
         <Reveal delay={0.2} direction="left">
           <div style={{ aspectRatio: '3/4', maxWidth: 340, overflow: 'hidden', border: '1px solid rgba(255,255,255,0.08)', position: 'relative' }}>
-            <img src="/assets/headshot.jpg" alt="Deepak Kumar Prasad"
+            <img src={`${import.meta.env.BASE_URL}assets/headshot.jpg`} alt="Deepak Kumar Prasad"
               style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center top', display: 'block', filter: 'grayscale(20%)' }} />
           </div>
         </Reveal>
