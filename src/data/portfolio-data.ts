@@ -1,9 +1,18 @@
 import type { Portfolio } from '../types'
 
+function calcExperienceYears(): number {
+  const MS_PER_YEAR = 1000 * 60 * 60 * 24 * 365.25
+  const span1 = new Date(2018, 6).getTime() - new Date(2016, 5).getTime() // Jun 2016 – Jul 2018
+  const span2 = Date.now()               - new Date(2019, 1).getTime() // Feb 2019 – present
+  return Math.floor((span1 + span2) / MS_PER_YEAR)
+}
+
+export const yearsExperience = calcExperienceYears()
+
 const data: Portfolio = {
   name: "Deepak Kumar Prasad",
   title: "Senior Application Architect",
-  tagline: "9+ years · Supply Chain Platforms · Python · Distributed Systems · 150+ Global Clients",
+  tagline: `${yearsExperience}+ years · Supply Chain Platforms · Python · Distributed Systems · 150+ Global Clients`,
   email: "deepak.prasad.ai@gmail.com",
   phone: "+91 88613 27919 & +1 (707) 733-3727",
   linkedin: "https://linkedin.com/in/dpkpr1",
@@ -173,6 +182,25 @@ const data: Portfolio = {
   ],
 
   certifications: [
+    {
+      name: "Design for Performance Architect",
+      issuer: "o9 Solutions · Credly",
+      year: "Oct 2023",
+      type: "course",
+      verify: "https://www.credly.com/badges/fdab58f7-336c-4254-be95-11fcab229d88/linked_in_profile",
+    },
+    {
+      name: "Claude AI Development",
+      issuer: "Anthropic Education · 3 courses",
+      year: "Apr 2026",
+      type: "specialization",
+      verify: "https://verify.skilljar.com/c/rps263ifdqdw",
+      courses: [
+        { name: "Model Context Protocol: Advanced Topics", verify: "https://verify.skilljar.com/c/rps263ifdqdw" },
+        { name: "Introduction to Agent Skills", verify: "https://verify.skilljar.com/c/m8q9aj7ogvav" },
+        { name: "Claude 101", verify: "https://verify.skilljar.com/c/v6yf6n8cepzs" },
+      ],
+    },
     {
       name: "Python for Everybody",
       issuer: "University of Michigan · Coursera Specialization (5 courses)",

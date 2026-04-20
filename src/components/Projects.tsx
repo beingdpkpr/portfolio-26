@@ -17,9 +17,9 @@ export function Projects() {
         </h2>
       </Reveal>
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(340px, 1fr))', gap: 1 }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(340px, 1fr))', gap: 1, alignItems: 'stretch' }}>
         {d.map((p, i) => (
-          <Reveal key={i} delay={i * 0.07}>
+          <Reveal key={i} delay={i * 0.07} style={{ height: '100%' }}>
             <div
               onMouseEnter={() => setHovered(i)}
               onMouseLeave={() => setHovered(null)}
@@ -28,6 +28,7 @@ export function Projects() {
                 background: hovered === i ? 'rgba(255,255,255,0.04)' : 'transparent',
                 transition: 'all 0.25s ease', cursor: 'default',
                 position: 'relative', overflow: 'hidden',
+                display: 'flex', flexDirection: 'column', height: '100%',
               }}>
               <div style={{ position: 'absolute', top: 24, right: 24, fontFamily: "'Space Mono', monospace", fontSize: 11, color: 'rgba(255,255,255,0.12)', letterSpacing: '0.1em' }}>
                 {String(i + 1).padStart(2, '0')}
@@ -42,7 +43,7 @@ export function Projects() {
               <h3 style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: 20, color: '#fff', margin: '0 0 12px', lineHeight: 1.3 }}>
                 {p.title}
               </h3>
-              <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 14, color: '#666', lineHeight: 1.7, margin: '0 0 24px' }}>
+              <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 14, color: '#666', lineHeight: 1.7, margin: '0 0 24px', flex: 1 }}>
                 {p.description}
               </p>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>

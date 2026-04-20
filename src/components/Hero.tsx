@@ -1,5 +1,5 @@
 import { useTypingEffect } from '../hooks/useTypingEffect'
-import data from '../data/portfolio-data'
+import data, { yearsExperience } from '../data/portfolio-data'
 
 function scrollTo(id: string) {
   const el = document.getElementById(id)
@@ -88,7 +88,12 @@ export function Hero() {
           borderTop: '1px solid rgba(255,255,255,0.08)',
           animation: 'fadeUp 0.8s ease 0.5s both', flexWrap: 'wrap',
         }}>
-          {([['9+ yrs', 'Experience'], ['150+', 'Global Clients'], ['10+', 'Engineers Led'], ['50%', 'Runtime Reduction']] as const).map(([n, l]) => (
+          {([
+            [`${yearsExperience}+ yrs`, 'Experience'],
+            ['150+', 'Global Clients'],
+            ['10+', 'Engineers Led'],
+            ['50%', 'Runtime Reduction'],
+          ] as [string, string][]).map(([n, l]) => (
             <div key={l}>
               <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 800, fontSize: 32, color: '#fff' }}>{n}</div>
               <div style={{ fontFamily: "'Space Mono', monospace", fontSize: 11, color: '#555', letterSpacing: '0.1em', textTransform: 'uppercase', marginTop: 4 }}>{l}</div>
