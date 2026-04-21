@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useActiveSection } from '../hooks/useActiveSection'
 
 const SECTIONS = ['about', 'experience', 'projects', 'skills', 'education', 'certifications', 'blog', 'contact']
@@ -12,6 +13,16 @@ export function Nav() {
   const active = useActiveSection(['hero', ...SECTIONS])
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
+  const navigate = useNavigate()
+
+  const handleNav = (id: string) => {
+    const el = document.getElementById(id)
+    if (el) {
+      scrollTo(id)
+    } else {
+      navigate('/#' + id)
+    }
+  }
 
   useState(() => {
     const h = () => setScrolled(window.scrollY > 40)
@@ -30,7 +41,7 @@ export function Nav() {
       display: 'flex', alignItems: 'center', justifyContent: 'space-between',
       height: 64,
     }}>
-      <button onClick={() => scrollTo('hero')} style={{
+      <button onClick={() => handleNav('hero')} style={{
         background: 'none', border: 'none', cursor: 'pointer',
         color: '#fff', fontFamily: "'Space Grotesk', sans-serif",
         fontWeight: 700, fontSize: 16, letterSpacing: '0.05em',
@@ -40,7 +51,7 @@ export function Nav() {
 
       <div style={{ display: 'flex', gap: 32, alignItems: 'center' }} className="nav-links">
         {SECTIONS.map(s => (
-          <button key={s} onClick={() => scrollTo(s)} style={{
+          <button key={s} onClick={() => handleNav(s)} style={{
             background: 'none', border: 'none', cursor: 'pointer', padding: '4px 0',
             fontFamily: "'Space Mono', monospace", fontSize: 11, letterSpacing: '0.12em',
             textTransform: 'uppercase',
@@ -73,7 +84,7 @@ export function Nav() {
           alignItems: 'center', justifyContent: 'center', gap: 32, zIndex: 999,
         }}>
           {SECTIONS.map(s => (
-            <button key={s} onClick={() => { setMenuOpen(false); scrollTo(s) }} style={{
+            <button key={s} onClick={() => { setMenuOpen(false); handleNav(s) }} style={{
               background: 'none', border: 'none', cursor: 'pointer',
               fontFamily: "'Space Grotesk', sans-serif", fontSize: 24,
               color: '#fff', textTransform: 'capitalize',
