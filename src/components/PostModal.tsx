@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import type { BlogPost } from '../types'
+import { CodeBlock } from './CodeBlock'
 
 interface PostModalProps {
   post: BlogPost
@@ -67,7 +68,15 @@ export function PostModal({ post, posts, onClose }: PostModalProps) {
         </h1>
 
         <div className="article-body">
-          <ReactMarkdown remarkPlugins={[remarkGfm]}>{post.content}</ReactMarkdown>
+          <ReactMarkdown
+            remarkPlugins={[remarkGfm]}
+            components={{
+              pre: ({ children }) => {
+                const code = (children as React.ReactElement)?.props
+                return <CodeBlock className={code?.className}>{code?.children}</CodeBlock>
+              },
+            }}
+          >{post.content}</ReactMarkdown>
         </div>
 
         {(prev || next) && (
