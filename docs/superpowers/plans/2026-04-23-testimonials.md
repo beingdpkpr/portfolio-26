@@ -138,7 +138,7 @@ Open `src/data/portfolio-data.ts`. Add the following as the last property inside
       company: 'o9 Solutions',
       relationship: 'Rahul managed Deepak directly',
       date: 'April 2025',
-      linkedinUrl: 'https://linkedin.com/in/dpkpr1',
+      linkedinUrl: 'https://www.linkedin.com/in/dpkpr1/details/recommendations/?detailScreenTabIndex=0',
       text: 'I had the pleasure of working with Deepak during our joint stint at o9, and his technical/programming expertise was truly top-notch. He consistently delivered clean, efficient solutions and approached every challenge with a thoughtful, problem-solving mindset. He has a very high ability of exploring new technologies to solve a problem. Beyond technical skill, Deepak is a great team player—reliable and always ready to help others. His contribution made a real difference, and I\'d highly recommend him for any role that values strong programming skill and collaboration.',
     },
     {
@@ -147,7 +147,7 @@ Open `src/data/portfolio-data.ts`. Add the following as the last property inside
       company: 'o9 Solutions',
       relationship: 'Yashad was senior to Deepak',
       date: 'June 2020',
-      linkedinUrl: 'https://linkedin.com/in/dpkpr1',
+      linkedinUrl: 'https://www.linkedin.com/in/dpkpr1/details/recommendations/?detailScreenTabIndex=0',
       text: 'Worked with Deepak on Industry Solutions projects at o9. I find him to be an extremely diligent, hard working and focused person. He is also a team player and I have experienced it first hand. His development skills are great and he is surely an asset for any team he works with.',
     },
     {
@@ -156,7 +156,7 @@ Open `src/data/portfolio-data.ts`. Add the following as the last property inside
       company: 'o9 Solutions',
       relationship: 'Vinayak managed Deepak directly',
       date: 'March 2020',
-      linkedinUrl: 'https://linkedin.com/in/dpkpr1',
+      linkedinUrl: 'https://www.linkedin.com/in/dpkpr1/details/recommendations/?detailScreenTabIndex=0',
       text: 'Deepak played the role of a developer in our team. He was very diligent, hard-working and always enthusiastic about learning new technologies. His hunger for knowledge and skills is very visible while working with him. He is also very flexible with work and owns up the complete software development included testing to a great extent. This is a very rare combination I have seen. Any dev assignment was delivered with very high quality in terms of both code and usability (UI perspective).',
     },
     {
@@ -228,7 +228,7 @@ describe('Testimonials', () => {
     const links = screen.getAllByRole('link', { name: /view on linkedin/i })
     expect(links).toHaveLength(3)
     links.forEach(link => {
-      expect(link).toHaveAttribute('href', 'https://linkedin.com/in/dpkpr1')
+      expect(link).toHaveAttribute('href', 'https://www.linkedin.com/in/dpkpr1/details/recommendations/?detailScreenTabIndex=0')
       expect(link).toHaveAttribute('target', '_blank')
     })
   })
