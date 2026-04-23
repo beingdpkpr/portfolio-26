@@ -42,3 +42,28 @@ export async function sendEmail(payload: EmailPayload): Promise<void> {
     timeoutPromise,
   ])
 }
+
+export interface VisitorPayload {
+  visitor_ip: string
+  visitor_city: string
+  visitor_country: string
+  visitor_isp: string
+  visitor_ua: string
+  visited_at: string
+  page_url: string
+}
+
+export async function sendVisitorAlert(payload: VisitorPayload): Promise<void> {
+  const visitorTemplateId = import.meta.env.VITE_EMAILJS_VISITOR_TEMPLATE_ID as string | undefined
+  if (!SERVICE_ID || !visitorTemplateId || !PUBLIC_KEY) return
+
+  await emailjs.send(SERVICE_ID, visitorTemplateId, {
+    visitor_ip:      payload.visitor_ip,
+    visitor_city:    payload.visitor_city,
+    visitor_country: payload.visitor_country,
+    visitor_isp:     payload.visitor_isp,
+    visitor_ua:      payload.visitor_ua,
+    visited_at:      payload.visited_at,
+    page_url:        payload.page_url,
+  })
+}
