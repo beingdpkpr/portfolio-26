@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen, fireEvent } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import { PostModal } from './PostModal'
 import type { BlogPost } from '../types'
@@ -13,10 +13,10 @@ const mockPost: BlogPost = {
   content: 'Hello world',
 }
 
-function renderModal() {
+function renderModal(post = mockPost) {
   return render(
     <MemoryRouter>
-      <PostModal post={mockPost} posts={[mockPost]} onClose={() => {}} />
+      <PostModal post={post} posts={[mockPost]} onClose={() => {}} />
     </MemoryRouter>
   )
 }
@@ -27,14 +27,26 @@ describe('PostModal', () => {
     expect(screen.getByText('Test Post')).toBeInTheDocument()
   })
 
-  it('renders a progress bar starting at 0%', () => {
+  it('renders progress bar at 0% on mount', () => {
     renderModal()
-    const progressBar = document.querySelector('[style*="width: 0%"]')
-    expect(progressBar).toBeInTheDocument()
+    const bar = screen.getByTestId('progress-bar')
+    expect(bar).toBeInTheDocument()
+    expect(bar).toHaveStyle('width: 0%')
+  })
+
+  it('updates progress bar on scroll', () => {
+    renderModal()
+    const overlay = document.querySelector('[style*="overflow: auto"]') as HTMLElement
+    Object.defineProperty(overlay, 'scrollTop', { value: 500, configurable: true })
+    Object.defineProperty(overlay, 'scrollHeight', { value: 1000, configurable: true })
+    Object.defineProperty(overlay, 'clientHeight', { value: 500, configurable: true })
+    fireEvent.scroll(overlay)
+    const bar = screen.getByTestId('progress-bar')
+    expect(bar).toHaveStyle('width: 100%')
   })
 
   it('renders the close button', () => {
     renderModal()
-    expect(screen.getByText(/close/i)).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: /close/i })).toBeInTheDocument()
   })
 })

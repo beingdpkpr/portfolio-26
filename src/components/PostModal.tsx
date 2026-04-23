@@ -19,13 +19,13 @@ export function PostModal({ post, posts, onClose }: PostModalProps) {
   const next = posts[idx + 1]
 
   const scrollRef = useRef<HTMLDivElement>(null)
-  const [progress, setProgress] = useState(0)
+  const [progressFraction, setProgressFraction] = useState(0)
 
   const handleScroll = () => {
     const el = scrollRef.current
     if (!el) return
     const pct = el.scrollTop / (el.scrollHeight - el.clientHeight)
-    setProgress(isNaN(pct) ? 0 : pct)
+    setProgressFraction(isNaN(pct) ? 0 : Math.min(1, pct))
   }
 
   useEffect(() => {
@@ -39,6 +39,11 @@ export function PostModal({ post, posts, onClose }: PostModalProps) {
     }
   }, [onClose])
 
+  useEffect(() => {
+    scrollRef.current?.scrollTo(0, 0)
+    setProgressFraction(0)
+  }, [post.slug])
+
   const copyLink = () => {
     navigator.clipboard.writeText(window.location.href).catch(() => {})
   }
@@ -51,7 +56,10 @@ export function PostModal({ post, posts, onClose }: PostModalProps) {
       onClick={onClose}
     >
       <div style={{ position: 'sticky', top: 0, zIndex: 1, height: 2, background: 'rgba(255,255,255,0.08)' }}>
-        <div style={{ height: '100%', width: `${progress * 100}%`, background: '#fff', transition: 'width 0.1s linear' }} />
+        <div
+          data-testid="progress-bar"
+          style={{ height: '100%', width: `${progressFraction * 100}%`, background: '#fff', transition: 'width 0.1s linear' }}
+        />
       </div>
 
       <div
