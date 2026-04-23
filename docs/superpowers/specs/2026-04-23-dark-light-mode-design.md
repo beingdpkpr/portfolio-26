@@ -8,6 +8,8 @@ Add a toggleable dark/light theme to the portfolio site with a fixed-corner togg
 
 A `data-theme` attribute on `<html>` controls the active theme. `global.css` defines all color tokens under `:root` (dark default) and `[data-theme="light"]` (light overrides). Inline styles across all components are converted from hardcoded hex/rgba to `var(--token)` strings. A `useTheme` hook manages toggle state and localStorage. No React context, no re-renders on theme switch — the browser handles all color transitions via CSS.
 
+**Single source of truth rule:** Color values (hex, rgba) appear **only** in `global.css`. Every component references `var(--token)` exclusively — no hex or rgba literals anywhere in `.tsx` files. To change a color in future, edit one line in `global.css`.
+
 ## Color Token Map
 
 | Token | Dark | Light |
