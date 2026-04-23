@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
@@ -18,6 +18,16 @@ export function PostModal({ post, posts, onClose }: PostModalProps) {
   const prev = posts[idx - 1]
   const next = posts[idx + 1]
 
+  const scrollRef = useRef<HTMLDivElement>(null)
+  const [progress, setProgress] = useState(0)
+
+  const handleScroll = () => {
+    const el = scrollRef.current
+    if (!el) return
+    const pct = el.scrollTop / (el.scrollHeight - el.clientHeight)
+    setProgress(isNaN(pct) ? 0 : pct)
+  }
+
   useEffect(() => {
     closeRef.current?.focus()
     document.body.style.overflow = 'hidden'
@@ -35,9 +45,15 @@ export function PostModal({ post, posts, onClose }: PostModalProps) {
 
   return (
     <div
+      ref={scrollRef}
+      onScroll={handleScroll}
       style={{ position: 'fixed', inset: 0, zIndex: 2000, background: 'rgba(8,8,10,0.94)', backdropFilter: 'blur(16px)', overflow: 'auto' }}
       onClick={onClose}
     >
+      <div style={{ position: 'sticky', top: 0, zIndex: 1, height: 2, background: 'rgba(255,255,255,0.08)' }}>
+        <div style={{ height: '100%', width: `${progress * 100}%`, background: '#fff', transition: 'width 0.1s linear' }} />
+      </div>
+
       <div
         style={{ maxWidth: 760, margin: '0 auto', padding: '80px 24px 120px' }}
         onClick={e => e.stopPropagation()}
