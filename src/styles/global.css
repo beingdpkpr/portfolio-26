@@ -61,7 +61,8 @@ textarea { font-family: 'Inter', sans-serif; }
   .exp-detail   { padding: 32px 0 0 0 !important; }
   .contact-grid { grid-template-columns: 1fr !important; }
   .edu-card     { grid-template-columns: 1fr !important; }
-  .cert-row     { grid-template-columns: 1fr !important; }
+  .cert-row          { grid-template-columns: 1fr !important; }
+  .testimonials-grid { grid-template-columns: 1fr !important; }
 }
 
 /* ── Blog article typography ── */
