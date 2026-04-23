@@ -49,6 +49,16 @@ export interface Certification {
   courses?: CourseEntry[]
 }
 
+export interface Testimonial {
+  name: string
+  title: string
+  company: string
+  relationship: string
+  date: string
+  text: string
+  linkedinUrl?: string
+}
+
 export interface Portfolio {
   name: string
   title: string
@@ -66,6 +76,7 @@ export interface Portfolio {
   skills: SkillGroup[]
   education: Education[]
   certifications: Certification[]
+  testimonials: Testimonial[]
 }
 
 export type FormState = 'idle' | 'sending' | 'success' | 'error'
