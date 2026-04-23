@@ -22,9 +22,7 @@ Three testimonials from LinkedIn recommendations:
 - **Relationship:** Rahul managed Deepak directly
 - **Date:** April 2025
 - **Text:**
-  > "I had the pleasure of working with Deepak during our joint stint at o9, and his technical/programming expertise was truly top-notch. He consistently delivered clean, efficient solutions and approached every challenge with a thoughtful, problem-solving mindset. He has a very high ability of exploring new technologies to solve a problem.
-  >
-  > Beyond technical skill, Deepak is a great team player—reliable and always ready to help others. His contribution made a real difference, and I'd highly recommend him for any role that values strong programming skill and collaboration."
+  > "I had the pleasure of working with Deepak during our joint stint at o9, and his technical/programming expertise was truly top-notch. He consistently delivered clean, efficient solutions and approached every challenge with a thoughtful, problem-solving mindset. He has a very high ability of exploring new technologies to solve a problem. Beyond technical skill, Deepak is a great team player—reliable and always ready to help others. His contribution made a real difference, and I’d highly recommend him for any role that values strong programming skill and collaboration."
 
 ### Yashad Kasar
 - **Title:** Product Manager — Supply Chain
@@ -40,7 +38,20 @@ Three testimonials from LinkedIn recommendations:
 - **Relationship:** Vinayak managed Deepak directly
 - **Date:** March 2020
 - **Text:**
-  > "Deepak played the role of a developer in our team. He was very diligent, hard-working and always enthusiastic about learning new technologies. His hunger for knowledge and skills is very visible while working with him. He is also very flexible with work and owns up the complete software development included testing to a great extent. This is a very rare combination I have seen. Any dev assignment was delivered with very high quality in terms of both code and usability (UI perspective)."
+  > "Deepak played the role of a developer in our team. He was very diligent , hard-working and always enthusiastic about learning new technologies. His hunger for knowledge and skills is very visible while working with him. He is also very flexible with work and owns up the complete software development included testing to a great extent. This is a very rare combination I have seen. Any dev assignment was delivered with very high quality in terms of both code and usability (UI perspective)."
+
+### Dhanesh Pai *(Letter of Recommendation)*
+- **Title:** Project Manager
+- **Company:** PrimeSoft IP Solutions
+- **Relationship:** Dhanesh managed Deepak directly
+- **Date:** March 2018
+- **linkedinUrl:** *(omitted — LOR, not a LinkedIn recommendation)*
+- **Text (adapted — academic framing removed, professional substance preserved):**
+  > "I have known Deepak in my capacity as his Project Manager for over two years, during which he worked on cloud-native application backend and frontend development. He is proficient in Java, Python, C/C++, and AngularJS and is a full stack developer.
+  >
+  > Deepak is a quick learner and hardworking — consistently the top performer in my team. He is highly intelligent with strong analytical skills and excellent communication skills; his written work is both clear and concise.
+  >
+  > He is an excellent team player who has helped team members during shortfalls and crisis situations, actively participated in sprint planning and standups, and is skilled at pushing back professionally when needed. He went well beyond project requirements in quantity and quality, completing additional research and professional certifications throughout. Deepak demonstrated great perseverance and initiative in all fields — he has my highest endorsement."
 
 ## Type Definition
 
@@ -54,6 +65,7 @@ export interface Testimonial {
   relationship: string
   date: string
   text: string
+  linkedinUrl?: string   // present for LinkedIn recommendations; omitted for LOR
 }
 ```
 
@@ -76,7 +88,7 @@ testimonials: Testimonial[]
   - Name: Space Grotesk, 700, 15px, `#fff`
   - Title + Company: Inter, 13px, `#555`, margin-top 4px
   - Relationship + Date: Space Mono, 10px, `#333`, margin-top 4px
-  - "View on LinkedIn →" link at bottom: Space Mono, 10px, `#555`, href `https://linkedin.com/in/dpkpr1`, target `_blank`, hover color `#fff`
+  - "View on LinkedIn →" link at bottom: Space Mono, 10px, `#555`, href `https://linkedin.com/in/dpkpr1`, target `_blank`, hover color `#fff` — **only rendered when `linkedinUrl` is present**
 
 ## Navigation
 
