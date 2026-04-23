@@ -81,6 +81,21 @@ export function Hero() {
             onMouseLeave={e => (e.currentTarget.style.borderColor = 'rgba(255,255,255,0.25)')}>
             GET IN TOUCH
           </button>
+          <a
+            href={`${import.meta.env.BASE_URL}assets/deepak_prasad_26.pdf`}
+            download="Deepak_Kumar_Prasad_Resume.pdf"
+            style={{
+              background: 'transparent', color: '#fff',
+              border: '1px solid rgba(255,255,255,0.25)', cursor: 'pointer',
+              padding: '14px 32px', fontFamily: "'Space Grotesk', sans-serif",
+              fontWeight: 700, fontSize: 14, letterSpacing: '0.05em',
+              textDecoration: 'none', transition: 'all 0.2s', display: 'inline-block',
+            }}
+            onMouseEnter={e => (e.currentTarget.style.borderColor = '#fff')}
+            onMouseLeave={e => (e.currentTarget.style.borderColor = 'rgba(255,255,255,0.25)')}
+          >
+            RÉSUMÉ ↓
+          </a>
         </div>
 
         <div style={{
