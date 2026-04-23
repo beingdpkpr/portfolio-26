@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useActiveSection } from '../hooks/useActiveSection'
 
-const SECTIONS = ['about', 'experience', 'projects', 'skills', 'education', 'certifications', 'blog', 'contact']
+const SECTIONS = ['about', 'experience', 'projects', 'skills', 'education', 'certifications', 'testimonials', 'blog', 'contact']
 
 function scrollTo(id: string) {
   const el = document.getElementById(id)
