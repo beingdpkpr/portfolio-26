@@ -12,6 +12,7 @@ import { Testimonials } from '../components/Testimonials'
 import { BlogLink } from '../components/BlogLink'
 import { Contact } from '../components/Contact'
 import { Footer } from '../components/Footer'
+import { ThemeToggle } from '../components/ui/ThemeToggle'
 
 export function Home() {
   const { hash } = useLocation()
@@ -31,7 +32,7 @@ export function Home() {
   }, [hash])
 
   return (
-    <div style={{ background: '#08080a', minHeight: '100vh', color: '#fff' }}>
+    <div style={{ background: 'var(--bg)', minHeight: '100vh', color: 'var(--fg)' }}>
       <Nav />
       <Hero />
       <About />
@@ -44,6 +45,7 @@ export function Home() {
       <BlogLink />
       <Contact />
       <Footer />
+      <ThemeToggle />
     </div>
   )
 }

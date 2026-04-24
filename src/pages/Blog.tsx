@@ -4,6 +4,7 @@ import { getAllPosts } from '../lib/markdown'
 import { PostModal } from '../components/PostModal'
 import { Reveal } from '../components/ui/Reveal'
 import { Nav } from '../components/Nav'
+import { ThemeToggle } from '../components/ui/ThemeToggle'
 
 export function Blog() {
   const { slug } = useParams<{ slug: string }>()
@@ -79,6 +80,7 @@ export function Blog() {
       {activePost && (
         <PostModal post={activePost} posts={posts} onClose={() => navigate('/blog')} />
       )}
+      <ThemeToggle />
     </div>
   )
 }
