@@ -4,7 +4,7 @@ if (!Element.prototype.scrollTo) {
   Element.prototype.scrollTo = () => {}
 }
 
-global.IntersectionObserver = class IntersectionObserver {
+globalThis.IntersectionObserver = class IntersectionObserver {
   constructor(_cb: IntersectionObserverCallback) {}
   observe() {}
   unobserve() {}
