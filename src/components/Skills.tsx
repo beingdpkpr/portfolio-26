@@ -5,12 +5,12 @@ import data from '../data/portfolio-data'
 export function Skills() {
   const d = data.skills
   return (
-    <section id="skills" style={{ padding: '120px clamp(16px,8vw,140px)', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+    <section id="skills" style={{ padding: '120px clamp(16px,8vw,140px)', borderTop: '1px solid var(--line)' }}>
       <Reveal>
-        <div style={{ fontFamily: "'Space Mono', monospace", fontSize: 11, letterSpacing: '0.2em', color: '#555', textTransform: 'uppercase', marginBottom: 16 }}>
+        <div style={{ fontFamily: "'Space Mono', monospace", fontSize: 11, letterSpacing: '0.2em', color: 'var(--text-lo)', textTransform: 'uppercase', marginBottom: 16 }}>
           04 / Skills
         </div>
-        <h2 style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 800, fontSize: 'clamp(28px,3.5vw,48px)', color: '#fff', margin: '0 0 64px', letterSpacing: '-0.02em' }}>
+        <h2 style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 800, fontSize: 'clamp(28px,3.5vw,48px)', color: 'var(--fg)', margin: '0 0 64px', letterSpacing: '-0.02em' }}>
           Technical Stack
         </h2>
       </Reveal>
@@ -20,9 +20,9 @@ export function Skills() {
           <Reveal key={gi} delay={gi * 0.06}>
             <div>
               <div style={{
-                fontFamily: "'Space Mono', monospace", fontSize: 10, color: '#444',
+                fontFamily: "'Space Mono', monospace", fontSize: 10, color: 'var(--text-dim)',
                 letterSpacing: '0.2em', textTransform: 'uppercase', marginBottom: 20,
-                paddingBottom: 12, borderBottom: '1px solid rgba(255,255,255,0.06)',
+                paddingBottom: 12, borderBottom: '1px solid var(--line)',
               }}>
                 {group.category}
               </div>
