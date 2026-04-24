@@ -23,8 +23,8 @@ function isCoolingDown(): boolean {
 
 const inputStyle: React.CSSProperties = {
   width: '100%', background: 'transparent',
-  border: 'none', borderBottom: '1px solid rgba(255,255,255,0.15)',
-  color: '#fff', fontFamily: "'Inter', sans-serif", fontSize: 16,
+  border: 'none', borderBottom: '1px solid var(--line-mid)',
+  color: 'var(--fg)', fontFamily: "'Inter', sans-serif", fontSize: 16,
   padding: '16px 0', outline: 'none', boxSizing: 'border-box',
   transition: 'border-color 0.2s',
 }
@@ -42,20 +42,11 @@ export function Contact() {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
-
     if (honeypotRef.current?.value) return
-
     const validationError = validate(name, email, message)
     if (validationError) { setError(validationError); return }
-
-    if (isCoolingDown()) {
-      setError('Please wait a moment before sending another message.')
-      return
-    }
-
-    setError(null)
-    setSendError(null)
-    setFormState('sending')
+    if (isCoolingDown()) { setError('Please wait a moment before sending another message.'); return }
+    setError(null); setSendError(null); setFormState('sending')
     try {
       await sendEmail({ from_name: name, from_email: email, message })
       sessionStorage.setItem(STORAGE_KEY, String(Date.now()))
@@ -68,15 +59,15 @@ export function Contact() {
   }
 
   return (
-    <section id="contact" style={{ padding: '120px clamp(16px,8vw,140px)', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+    <section id="contact" style={{ padding: '120px clamp(16px,8vw,140px)', borderTop: '1px solid var(--line)' }}>
       <Reveal>
-        <div style={{ fontFamily: "'Space Mono', monospace", fontSize: 11, letterSpacing: '0.2em', color: '#555', textTransform: 'uppercase', marginBottom: 16 }}>
+        <div style={{ fontFamily: "'Space Mono', monospace", fontSize: 11, letterSpacing: '0.2em', color: 'var(--text-lo)', textTransform: 'uppercase', marginBottom: 16 }}>
           08 / Contact
         </div>
-        <h2 style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 800, fontSize: 'clamp(28px,3.5vw,48px)', color: '#fff', margin: '0 0 16px', letterSpacing: '-0.02em' }}>
+        <h2 style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 800, fontSize: 'clamp(28px,3.5vw,48px)', color: 'var(--fg)', margin: '0 0 16px', letterSpacing: '-0.02em' }}>
           Let's Talk
         </h2>
-        <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 16, color: '#555', marginBottom: 80, maxWidth: 480, lineHeight: 1.7 }}>
+        <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 16, color: 'var(--text-lo)', marginBottom: 80, maxWidth: 480, lineHeight: 1.7 }}>
           Open to interesting problems, architecture challenges, and meaningful collaborations.
         </p>
       </Reveal>
@@ -84,23 +75,23 @@ export function Contact() {
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 80 }} className="contact-grid">
         <Reveal delay={0.1}>
           {!configured ? (
-            <div style={{ padding: '32px', border: '1px solid rgba(255,255,255,0.08)' }}>
-              <div style={{ fontFamily: "'Space Mono', monospace", fontSize: 11, color: '#555', lineHeight: 1.8 }}>
+            <div style={{ padding: '32px', border: '1px solid var(--line)' }}>
+              <div style={{ fontFamily: "'Space Mono', monospace", fontSize: 11, color: 'var(--text-lo)', lineHeight: 1.8 }}>
                 Contact form temporarily unavailable.<br />
-                Reach out directly at <a href={`mailto:${d.email}`} style={{ color: '#888' }}>{d.email}</a>
+                Reach out directly at <a href={`mailto:${d.email}`} style={{ color: 'var(--text-hi)' }}>{d.email}</a>
               </div>
             </div>
           ) : formState === 'success' ? (
-            <div style={{ padding: '48px', border: '1px solid rgba(255,255,255,0.12)', textAlign: 'center' }}>
-              <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: 24, color: '#fff', marginBottom: 12 }}>
+            <div style={{ padding: '48px', border: '1px solid var(--line-mid)', textAlign: 'center' }}>
+              <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: 24, color: 'var(--fg)', marginBottom: 12 }}>
                 Message sent ✓
               </div>
-              <div style={{ fontFamily: "'Inter', sans-serif", fontSize: 14, color: '#555', marginBottom: 32 }}>
+              <div style={{ fontFamily: "'Inter', sans-serif", fontSize: 14, color: 'var(--text-lo)', marginBottom: 32 }}>
                 I'll be in touch soon.
               </div>
-              <button onClick={() => setFormState('idle')} style={{ background: 'none', border: '1px solid rgba(255,255,255,0.2)', color: '#555', cursor: 'pointer', padding: '8px 20px', fontFamily: "'Space Mono', monospace", fontSize: 11, letterSpacing: '0.1em', transition: 'all 0.2s' }}
-                onMouseEnter={e => { e.currentTarget.style.color = '#fff'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.5)' }}
-                onMouseLeave={e => { e.currentTarget.style.color = '#555'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.2)' }}>
+              <button onClick={() => setFormState('idle')} style={{ background: 'none', border: '1px solid var(--line-hi)', color: 'var(--text-lo)', cursor: 'pointer', padding: '8px 20px', fontFamily: "'Space Mono', monospace", fontSize: 11, letterSpacing: '0.1em', transition: 'all 0.2s' }}
+                onMouseEnter={e => { e.currentTarget.style.color = 'var(--fg)'; e.currentTarget.style.borderColor = 'var(--fg)' }}
+                onMouseLeave={e => { e.currentTarget.style.color = 'var(--text-lo)'; e.currentTarget.style.borderColor = 'var(--line-hi)' }}>
                 SEND ANOTHER
               </button>
             </div>
@@ -108,57 +99,44 @@ export function Contact() {
             <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 32 }} noValidate>
               {/* Honeypot — hidden from real users */}
               <input ref={honeypotRef} type="text" name="website" tabIndex={-1} aria-hidden="true" style={{ display: 'none' }} />
-
               <div>
-                <input
-                  type="text" placeholder="Your Name" value={name} required
+                <input type="text" placeholder="Your Name" value={name} required
                   onChange={e => setName(e.target.value)} style={inputStyle}
-                  onFocus={e => (e.target.style.borderBottomColor = '#fff')}
-                  onBlur={e => (e.target.style.borderBottomColor = 'rgba(255,255,255,0.15)')}
-                />
+                  onFocus={e => (e.target.style.borderBottomColor = 'var(--fg)')}
+                  onBlur={e => (e.target.style.borderBottomColor = 'var(--line-mid)')} />
               </div>
               <div>
-                <input
-                  type="email" placeholder="Your Email" value={email} required
+                <input type="email" placeholder="Your Email" value={email} required
                   onChange={e => setEmail(e.target.value)} style={inputStyle}
-                  onFocus={e => (e.target.style.borderBottomColor = '#fff')}
-                  onBlur={e => (e.target.style.borderBottomColor = 'rgba(255,255,255,0.15)')}
-                />
+                  onFocus={e => (e.target.style.borderBottomColor = 'var(--fg)')}
+                  onBlur={e => (e.target.style.borderBottomColor = 'var(--line-mid)')} />
               </div>
               <div>
-                <textarea
-                  placeholder="Your Message" value={message} required rows={4}
+                <textarea placeholder="Your Message" value={message} required rows={4}
                   onChange={e => setMessage(e.target.value)}
                   style={{ ...inputStyle, resize: 'none' }}
-                  onFocus={e => (e.target.style.borderBottomColor = '#fff')}
-                  onBlur={e => (e.target.style.borderBottomColor = 'rgba(255,255,255,0.15)')}
-                />
-                <div style={{ fontFamily: "'Space Mono', monospace", fontSize: 9, color: '#444', marginTop: 6, textAlign: 'right' }}>
+                  onFocus={e => (e.target.style.borderBottomColor = 'var(--fg)')}
+                  onBlur={e => (e.target.style.borderBottomColor = 'var(--line-mid)')} />
+                <div style={{ fontFamily: "'Space Mono', monospace", fontSize: 9, color: 'var(--text-dim)', marginTop: 6, textAlign: 'right' }}>
                   {message.length} / 3000
                 </div>
               </div>
-
-              {error && (
-                <div style={{ fontFamily: "'Inter', sans-serif", fontSize: 13, color: '#c0392b' }}>{error}</div>
-              )}
+              {error && <div style={{ fontFamily: "'Inter', sans-serif", fontSize: 13, color: 'var(--error)' }}>{error}</div>}
               {formState === 'error' && (
-                <div style={{ fontFamily: "'Inter', sans-serif", fontSize: 13, color: '#c0392b' }}>
+                <div style={{ fontFamily: "'Inter', sans-serif", fontSize: 13, color: 'var(--error)' }}>
                   {sendError ?? 'Something went wrong. Please try again or email directly.'}
                 </div>
               )}
-
-              <button
-                type="submit"
-                disabled={formState === 'sending'}
+              <button type="submit" disabled={formState === 'sending'}
                 style={{
-                  background: '#fff', color: '#000',
+                  background: 'var(--fg)', color: 'var(--fg-inv)',
                   border: 'none', cursor: formState === 'sending' ? 'not-allowed' : 'pointer',
                   padding: '16px 40px', fontFamily: "'Space Grotesk', sans-serif",
                   fontWeight: 700, fontSize: 14, letterSpacing: '0.05em',
                   alignSelf: 'flex-start', transition: 'all 0.2s',
                 }}
-                onMouseEnter={e => { if (formState !== 'sending') e.currentTarget.style.background = '#e0e0e0' }}
-                onMouseLeave={e => { e.currentTarget.style.background = '#fff' }}>
+                onMouseEnter={e => { if (formState !== 'sending') e.currentTarget.style.background = 'var(--fg-hover)' }}
+                onMouseLeave={e => { e.currentTarget.style.background = 'var(--fg)' }}>
                 {formState === 'sending' ? 'SENDING…' : 'SEND MESSAGE →'}
               </button>
             </form>
@@ -174,17 +152,17 @@ export function Contact() {
               ['LinkedIn', d.linkedinLabel, d.linkedin],
               ['GitHub',   d.githubLabel,   d.github],
             ] as const).map(([label, val, href]) => (
-              <div key={label} style={{ borderBottom: '1px solid rgba(255,255,255,0.06)', paddingBottom: 24 }}>
-                <div style={{ fontFamily: "'Space Mono', monospace", fontSize: 10, color: '#444', letterSpacing: '0.15em', textTransform: 'uppercase', marginBottom: 8 }}>{label}</div>
+              <div key={label} style={{ borderBottom: '1px solid var(--line)', paddingBottom: 24 }}>
+                <div style={{ fontFamily: "'Space Mono', monospace", fontSize: 10, color: 'var(--text-dim)', letterSpacing: '0.15em', textTransform: 'uppercase', marginBottom: 8 }}>{label}</div>
                 {href ? (
                   <a href={href} target={href.startsWith('http') ? '_blank' : undefined} rel="noopener noreferrer"
-                    style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 16, color: '#888', textDecoration: 'none', transition: 'color 0.2s' }}
-                    onMouseEnter={e => (e.currentTarget.style.color = '#fff')}
-                    onMouseLeave={e => (e.currentTarget.style.color = '#888')}>
+                    style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 16, color: 'var(--text-hi)', textDecoration: 'none', transition: 'color 0.2s' }}
+                    onMouseEnter={e => (e.currentTarget.style.color = 'var(--fg)')}
+                    onMouseLeave={e => (e.currentTarget.style.color = 'var(--text-hi)')}>
                     {val}
                   </a>
                 ) : (
-                  <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 16, color: '#888' }}>{val}</div>
+                  <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 16, color: 'var(--text-hi)' }}>{val}</div>
                 )}
               </div>
             ))}
