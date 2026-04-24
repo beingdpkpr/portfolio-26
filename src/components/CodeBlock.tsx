@@ -23,20 +23,20 @@ export function CodeBlock({ children, className }: CodeBlockProps) {
         onClick={copy}
         style={{
           position: 'absolute', top: 10, right: 10,
-          background: copied ? 'rgba(255,255,255,0.12)' : 'rgba(255,255,255,0.06)',
-          border: '1px solid rgba(255,255,255,0.1)',
+          background: copied ? 'var(--surf-hover)' : 'var(--surf)',
+          border: '1px solid var(--line-mid)',
           cursor: 'pointer',
           fontFamily: "'Space Mono', monospace",
           fontSize: 9,
-          color: copied ? '#fff' : '#555',
+          color: copied ? 'var(--fg)' : 'var(--text-mid)',
           letterSpacing: '0.1em',
           textTransform: 'uppercase',
           padding: '4px 10px',
           transition: 'all 0.2s',
           zIndex: 1,
         }}
-        onMouseEnter={e => { if (!copied) e.currentTarget.style.color = '#ccc' }}
-        onMouseLeave={e => { if (!copied) e.currentTarget.style.color = '#555' }}
+        onMouseEnter={e => { if (!copied) e.currentTarget.style.color = 'var(--fg-dim)' }}
+        onMouseLeave={e => { if (!copied) e.currentTarget.style.color = 'var(--text-mid)' }}
       >
         {copied ? 'Copied' : 'Copy'}
       </button>

@@ -17,20 +17,20 @@ export function Blog() {
   const activePost = slug ? posts.find(p => p.slug === slug) ?? null : null
 
   return (
-    <div style={{ background: '#08080a', minHeight: '100vh', color: '#fff' }}>
+    <div style={{ background: 'var(--bg)', minHeight: '100vh', color: 'var(--fg)' }}>
       <Nav />
       <div style={{ padding: '120px clamp(16px,8vw,140px) 80px' }}>
         <Reveal>
           <button
             onClick={() => navigate('/')}
-            style={{ background: 'none', border: 'none', cursor: 'pointer', fontFamily: "'Space Mono', monospace", fontSize: 10, color: '#555', letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: 48, padding: 0, transition: 'color 0.2s' }}
-            onMouseEnter={e => { e.currentTarget.style.color = '#fff' }}
-            onMouseLeave={e => { e.currentTarget.style.color = '#555' }}
+            style={{ background: 'none', border: 'none', cursor: 'pointer', fontFamily: "'Space Mono', monospace", fontSize: 10, color: 'var(--text-lo)', letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: 48, padding: 0, transition: 'color 0.2s' }}
+            onMouseEnter={e => { e.currentTarget.style.color = 'var(--fg)' }}
+            onMouseLeave={e => { e.currentTarget.style.color = 'var(--text-lo)' }}
           >Back to Home</button>
         </Reveal>
 
         <Reveal>
-          <h1 style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 800, fontSize: 'clamp(28px,3.5vw,48px)', color: '#fff', margin: '0 0 48px', letterSpacing: '-0.02em' }}>
+          <h1 style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 800, fontSize: 'clamp(28px,3.5vw,48px)', color: 'var(--fg)', margin: '0 0 48px', letterSpacing: '-0.02em' }}>
             Writing
           </h1>
         </Reveal>
@@ -42,10 +42,10 @@ export function Blog() {
                 key={tag}
                 onClick={() => setActiveTag(tag)}
                 style={{
-                  background: activeTag === tag ? '#fff' : 'none',
-                  border: '1px solid rgba(255,255,255,0.15)', cursor: 'pointer',
+                  background: activeTag === tag ? 'var(--fg)' : 'none',
+                  border: '1px solid var(--line-hi)', cursor: 'pointer',
                   padding: '6px 16px', fontFamily: "'Space Mono', monospace",
-                  fontSize: 10, color: activeTag === tag ? '#000' : '#555',
+                  fontSize: 10, color: activeTag === tag ? 'var(--fg-inv)' : 'var(--text-lo)',
                   letterSpacing: '0.1em', textTransform: 'uppercase', transition: 'all 0.2s',
                 }}
               >{tag}</button>
@@ -55,22 +55,22 @@ export function Blog() {
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
           {filtered.length === 0 ? (
-            <p style={{ fontFamily: "'Inter', sans-serif", color: '#444', fontSize: 14 }}>No posts yet.</p>
+            <p style={{ fontFamily: "'Inter', sans-serif", color: 'var(--text-dim)', fontSize: 14 }}>No posts yet.</p>
           ) : filtered.map((post, i) => (
             <Reveal key={post.slug} delay={i * 0.05}>
               <div
                 onClick={() => navigate('/blog/' + post.slug)}
-                style={{ padding: '32px 40px', border: '1px solid rgba(255,255,255,0.06)', cursor: 'pointer', transition: 'background 0.2s' }}
-                onMouseEnter={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.03)' }}
+                style={{ padding: '32px 40px', border: '1px solid var(--line)', cursor: 'pointer', transition: 'background 0.2s' }}
+                onMouseEnter={e => { e.currentTarget.style.background = 'var(--surf)' }}
                 onMouseLeave={e => { e.currentTarget.style.background = 'transparent' }}
               >
                 <div style={{ display: 'flex', gap: 16, alignItems: 'center', marginBottom: 8, flexWrap: 'wrap' }}>
-                  <span style={{ fontFamily: "'Space Mono', monospace", fontSize: 9, color: '#555', border: '1px solid rgba(255,255,255,0.1)', padding: '2px 8px', letterSpacing: '0.12em', textTransform: 'uppercase' }}>{post.tag}</span>
-                  <span style={{ fontFamily: "'Space Mono', monospace", fontSize: 10, color: '#444' }}>{post.date}</span>
-                  <span style={{ fontFamily: "'Space Mono', monospace", fontSize: 10, color: '#333' }}>{post.readTime}</span>
+                  <span style={{ fontFamily: "'Space Mono', monospace", fontSize: 9, color: 'var(--text-lo)', border: '1px solid var(--line-mid)', padding: '2px 8px', letterSpacing: '0.12em', textTransform: 'uppercase' }}>{post.tag}</span>
+                  <span style={{ fontFamily: "'Space Mono', monospace", fontSize: 10, color: 'var(--text-dim)' }}>{post.date}</span>
+                  <span style={{ fontFamily: "'Space Mono', monospace", fontSize: 10, color: 'var(--text-ghost)' }}>{post.readTime}</span>
                 </div>
-                <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: 18, color: '#fff', marginBottom: 8, lineHeight: 1.3 }}>{post.title}</div>
-                <div style={{ fontFamily: "'Inter', sans-serif", fontSize: 14, color: '#555', lineHeight: 1.6 }}>{post.excerpt}</div>
+                <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: 18, color: 'var(--fg)', marginBottom: 8, lineHeight: 1.3 }}>{post.title}</div>
+                <div style={{ fontFamily: "'Inter', sans-serif", fontSize: 14, color: 'var(--text-lo)', lineHeight: 1.6 }}>{post.excerpt}</div>
               </div>
             </Reveal>
           ))}
